@@ -2,9 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.model.EmbeddedMovie;
 import com.example.demo.service.EmbeddedMovieService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/embedded_movies")
@@ -17,8 +19,13 @@ public class EmbeddedMovieController {
     }
 
     @GetMapping
-    public List<EmbeddedMovie> getAll() {
-        return service.getAll();
+    public Page<EmbeddedMovie> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "email") String field
+    ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(field).descending());
+        return service.getAll(pageable);
     }
 
     @GetMapping("/{id}")

@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.model.EmbeddedMovie;
 import com.example.demo.repository.EmbeddedMovieRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +16,8 @@ public class EmbeddedMovieService {
         this.repository = repository;
     }
 
-    public List<EmbeddedMovie> getAll() {
-        return repository.findAll();
+    public Page<EmbeddedMovie> getAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public EmbeddedMovie getById(String id) {

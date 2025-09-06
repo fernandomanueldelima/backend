@@ -2,9 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -17,8 +19,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAll() {
-        return service.getAll();
+    public Page<User> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "email") String field
+    ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(field).descending());
+        return service.getAll(pageable);
     }
 
     @GetMapping("/{id}")
