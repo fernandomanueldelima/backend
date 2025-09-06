@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.model.Comment;
 import com.example.demo.repository.CommentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public class CommentService {
         this.repository = repository;
     }
 
-    public List<Comment> getAll() { return repository.findAll(); }
+    public Page<Comment> getAll(Pageable pageable) { return repository.findAll(pageable); }
     public Comment getById(String id) { return repository.findById(id).orElse(null); }
     public Comment create(Comment comment) { return repository.save(comment); }
     public Comment update(String id, Comment comment) { comment.setId(id); return repository.save(comment); }
