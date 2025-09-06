@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/theaters")
+@CrossOrigin(origins = "*")
 public class TheaterController {
     private final TheaterService service;
 
