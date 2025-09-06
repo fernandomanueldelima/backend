@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/embedded_movies")
-@CrossOrigin(origins = "*")
 public class EmbeddedMovieController {
 
     private final EmbeddedMovieService service;
